@@ -1,8 +1,8 @@
-# body-buddy
+# body-buddy 💪
 
 Allahuakbar
 
-Kelompok Bismillah Allahuakbbar
+Kelompok **Bismillah Allahuakbbar**
 
 Ketua Kelompok: Rangga Aulia Rahman – 20/456849/TK/50673
 
