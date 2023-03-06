@@ -8,6 +8,9 @@
 name: Labeler
 on: [pull_request_target]
 
+env:
+  GITHUB_TOKEN: ${{ secrets.TOKEN_ACCESS }}
+
 jobs:
   label:
 
@@ -19,4 +22,5 @@ jobs:
     steps:
     - uses: actions/labeler@v4
       with:
-        repo-token: "${{ secrets.GITHUB_TOKEN }}"
+        repo-token: "${{ secrets.TOKEN_ACCESS }}"
+        configuration-path: ".github/labeler.yml"

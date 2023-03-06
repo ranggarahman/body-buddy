@@ -1,0 +1,25 @@
+# Define the labels and their associated conditions
+labels:
+  - name: bug
+    conditions:
+      - "title ~ 'bug'"
+
+  - name: enhancement
+    conditions:
+      - "title ~ 'feature'"
+
+  - name: documentation
+    conditions:
+      - "title ~ 'doc'"
+      - "title ~ 'docs'"
+      - "title ~ 'document'"
+      - "title ~ 'documents'"
+      - "title ~ 'documentation'"
+
+  - name: help wanted
+    conditions:
+      - "title ~ 'help wanted'"
+
+  - name: question
+    conditions:
+      - "title ~ 'question'"
