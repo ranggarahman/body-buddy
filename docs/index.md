@@ -40,3 +40,18 @@ Pengembangan aplikasi BodyBuddy yang dapat memberikan pengguna rekomendasijumlah
 ### Analisis Kompetitor 3
 ![image](https://user-images.githubusercontent.com/79177708/222970541-cd9c0fb1-5dc8-471b-a2fb-9d1579295b66.png)
 
+## Pengerjaan Lab 2.4
+### Use Case Diagram
+![image](https://user-images.githubusercontent.com/79177708/223071794-13c3d809-3841-483e-a76b-2b50ad00e8ea.png)
+### Functional Requirements
+![image](https://user-images.githubusercontent.com/79177708/223071904-c08939b9-2168-4e96-a1a1-5f45249b104e.png)
+![image](https://user-images.githubusercontent.com/79177708/223071966-8276280e-1bb5-41a1-a34f-fa9f301f4a3d.png)
+### Entity Relationship Diagram
+![image](https://user-images.githubusercontent.com/79177708/223072062-8909603d-0b9d-4da3-b552-b3e4f1e8b992.png)
+### Lo-fi Wireframes
+![image](https://user-images.githubusercontent.com/79177708/223072191-2cd0e7aa-0a58-4c3d-b016-7c4532913ee2.png) ![image](https://user-images.githubusercontent.com/79177708/223072287-3f1162b5-4a3e-46a4-a67b-528521e254a2.png) ![image](https://user-images.githubusercontent.com/79177708/223072345-e4bcce3c-ffbe-4742-b19e-48e30d9ae190.png)
+
+
+
+
+
