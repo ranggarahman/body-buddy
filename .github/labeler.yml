@@ -1,15 +1,25 @@
-name: Labeler
-on: [pull_request_target]
+# Define the labels and their associated conditions
+labels:
+  - name: bug
+    conditions:
+      - "title ~ 'bug'"
 
-jobs:
-  label:
+  - name: enhancement
+    conditions:
+      - "title ~ 'feature'"
 
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      pull-requests: write
+  - name: documentation
+    conditions:
+      - "title ~ 'doc'"
+      - "title ~ 'docs'"
+      - "title ~ 'document'"
+      - "title ~ 'documents'"
+      - "title ~ 'documentation'"
 
-    steps:
-    - uses: actions/labeler@v4
-      with:
-        repo-token: "${{ secrets.GITHUB_TOKEN }}"
+  - name: help wanted
+    conditions:
+      - "title ~ 'help wanted'"
+
+  - name: question
+    conditions:
+      - "title ~ 'question'"
