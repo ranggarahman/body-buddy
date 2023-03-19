@@ -1,26 +1,43 @@
-# This workflow will triage pull requests and apply a label based on the
-# paths that are modified in the pull request.
-#
-# To use this workflow, you will need to set up a .github/labeler.yml
-# file with configuration.  For more information, see:
-# https://github.com/actions/labeler
+name: Android Build
 
-name: Labeler
-on: [pull_request_target]
-
-env:
-  GITHUB_TOKEN: ${{ secrets.TOKEN_ACCESS }}
+on:
+  push:
+    branches:
+      - 'main'
+      - '456849'
+      - '460554'
 
 jobs:
-  label:
-
+  test:
+    name: Run Unit Tests
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      pull-requests: write
-
     steps:
-    - uses: actions/labeler@v4
-      with:
-        repo-token: "${{ secrets.TOKEN_ACCESS }}"
-        configuration-path: ".github/labeler.yml"
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup JDK
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'zulu'
+          java-version: '11'
+      - name: Run Tests
+        run: bash ./gradlew test --stacktrace
+
+  apk:
+    name: Generate APK
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup JDK
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'zulu'
+          java-version: '11'
+      - name: Build APK
+        run: bash ./gradlew assembleDebug --stacktrace
+      - name: Upload APK
+        uses: actions/upload-artifact@v2
+        with:
+          name: apk
+          path: app/build/outputs/apk/debug/app-debug.apk
