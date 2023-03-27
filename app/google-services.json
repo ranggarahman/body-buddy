@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "573988797765",
+    "project_id": "idyllic-aspect-298005",
+    "storage_bucket": "idyllic-aspect-298005.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:573988797765:android:6a3322d096f3c7c469122c",
+        "android_client_info": {
+          "package_name": "com.example.bodybuddy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "573988797765-0q2coq24s0kogjvg93mb909lme9kck8n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDsic2fwe5U-Tv6GPgubuFR6T5ztgEDZXs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "573988797765-0q2coq24s0kogjvg93mb909lme9kck8n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
