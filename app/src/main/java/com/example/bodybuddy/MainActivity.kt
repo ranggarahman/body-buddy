@@ -6,8 +6,6 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Lock
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -41,20 +39,21 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun BodyBuddyApp() {
     var isLoginScreen by remember { mutableStateOf(true) }
-    val register = Register()
+    val register = HandleRegister()
+    val login = HandleLogin()
 
     Scaffold(
         topBar = {
             TopAppBar(
                 title = {
-                    Text(if (isLoginScreen) "Log in" else "Register")
+                    Text(if (isLoginScreen) "Log in" else "HandleRegister")
                 }
             )
         },
         content = {
 
             if (isLoginScreen) {
-                LoginScreen()
+                login.LoginScreen()
             } else {
                 register.RegisterScreen()
             }
@@ -76,7 +75,7 @@ fun BodyBuddyApp() {
                     icon = { Icon(ImageVector.vectorResource(id = R.drawable.ic_app_registration_24), stringResource(
                         id = R.string.icon_register
                     ) )},
-                    label = { Text("Register", fontSize = 16.sp, fontWeight = FontWeight.Bold,
+                    label = { Text("HandleRegister", fontSize = 16.sp, fontWeight = FontWeight.Bold,
                         textAlign = TextAlign.Center
                     ) },
                     selected = !isLoginScreen,

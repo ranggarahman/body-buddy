@@ -2,4 +2,5 @@
     <string name="app_name">Body Buddy</string>
     <string name="icon_login">Login Icon</string>
     <string name="icon_register">Register Icon</string>
+    <string name="title_activity_dashboard">DashboardActivity</string>
 </resources>

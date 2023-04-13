@@ -21,7 +21,7 @@ import androidx.compose.ui.unit.dp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 
-class Register{
+class HandleRegister{
     @Composable
     fun RegisterScreen() {
 
@@ -99,18 +99,18 @@ class Register{
                         firebaseUser.sendEmailVerification()
                             .addOnCompleteListener { emailTask ->
                                 if (emailTask.isSuccessful) {
-                                    Log.d("RegisterScreen", "Email verification sent!")
+                                    Log.d(TAG, "Email verification sent!")
                                 } else {
                                     Log.e(
-                                        "RegisterScreen",
+                                        TAG,
                                         "Failed to send email verification: ${emailTask.exception}"
                                     )
                                 }
                             }
-                        Log.d("RegisterScreen", "Success!")
+                        Log.d(TAG, "Success!")
                     }
                 } else {
-                    Log.e("RegisterScreen", "Failed! : ${task.exception}")
+                    Log.e(TAG, "Failed! : ${task.exception}")
                 }
             }
     }
@@ -159,5 +159,9 @@ class Register{
     @Composable
     fun PreviewRegisterScreen() {
         RegisterScreen()
+    }
+
+    companion object {
+        private const val TAG = "RegisterScreen"
     }
 }
