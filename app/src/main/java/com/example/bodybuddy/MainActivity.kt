@@ -9,17 +9,15 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.bodybuddy.ui.theme.BodyBuddyTheme
-
-import com.example.bodybuddy.LoginScreen
-import com.example.bodybuddy.RegisterScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,6 +41,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun BodyBuddyApp() {
     var isLoginScreen by remember { mutableStateOf(true) }
+    val register = Register()
 
     Scaffold(
         topBar = {
@@ -53,16 +52,19 @@ fun BodyBuddyApp() {
             )
         },
         content = {
+
             if (isLoginScreen) {
                 LoginScreen()
             } else {
-                RegisterScreen()
+                register.RegisterScreen()
             }
         },
         bottomBar = {
             BottomNavigation {
                 BottomNavigationItem(
-                    icon = { Icons.Default.Lock },
+                    icon = { Icon(ImageVector.vectorResource(id = R.drawable.ic_login_24), stringResource(
+                        id = R.string.icon_login
+                    ) ) },
                     label = {
                         Text("Log in", fontSize = 16.sp, fontWeight = FontWeight.Bold,
                             textAlign = TextAlign.Center, )
@@ -71,7 +73,9 @@ fun BodyBuddyApp() {
                     onClick = { isLoginScreen = true },
                 )
                 BottomNavigationItem(
-                    icon = { Icons.Default.Lock },
+                    icon = { Icon(ImageVector.vectorResource(id = R.drawable.ic_app_registration_24), stringResource(
+                        id = R.string.icon_register
+                    ) )},
                     label = { Text("Register", fontSize = 16.sp, fontWeight = FontWeight.Bold,
                         textAlign = TextAlign.Center
                     ) },
@@ -82,83 +86,3 @@ fun BodyBuddyApp() {
         }
     )
 }
-
-//@Composable
-//@Preview
-//fun LoginScreen() {
-//    Column(
-//        modifier = Modifier.fillMaxSize(),
-//        horizontalAlignment = Alignment.CenterHorizontally,
-//        verticalArrangement = Arrangement.Center
-//    ) {
-//        Text(
-//            text = "Log in to Body Buddy",
-//            style = MaterialTheme.typography.h4,
-//            modifier = Modifier.padding(bottom = 32.dp)
-//        )
-//        OutlinedTextField(
-//            value = "",
-//            onValueChange = {},
-//            label = { Text("Username") },
-//            singleLine = true,
-//            modifier = Modifier.fillMaxWidth().padding(horizontal = 32.dp)
-//        )
-//        OutlinedTextField(
-//            value = "",
-//            onValueChange = {},
-//            label = { Text("Password") },
-//            singleLine = true,
-//            modifier = Modifier.fillMaxWidth().padding(horizontal = 32.dp, vertical = 16.dp)
-//        )
-//        Button(
-//            onClick = { /*TODO*/ },
-//            modifier = Modifier.padding(top = 16.dp)
-//        ) {
-//            Text(text = "Log in")
-//        }
-//    }
-//}
-
-//@Composable
-//@Preview
-//fun RegisterScreen() {
-//    Column(
-//        modifier = Modifier.fillMaxSize(),
-//        horizontalAlignment = Alignment.CenterHorizontally,
-//        verticalArrangement = Arrangement.Center
-//    ) {
-//        Text(
-//            text = "Create a Body Buddy account",
-//            style = MaterialTheme.typography.h4,
-//            textAlign = TextAlign.Center,
-//            modifier = Modifier.padding(bottom = 32.dp)
-//        )
-//        OutlinedTextField(
-//            value = "",
-//            onValueChange = {},
-//            label = { Text("Username") },
-//            singleLine = true,
-//            modifier = Modifier.fillMaxWidth().padding(horizontal = 32.dp)
-//        )
-//        OutlinedTextField(
-//            value = "",
-//            onValueChange = {},
-//            label = { Text("Email address") },
-//            singleLine = true,
-//            modifier = Modifier.fillMaxWidth().padding(horizontal = 32.dp, vertical = 16.dp)
-//        )
-//        OutlinedTextField(
-//            value = "",
-//            onValueChange = {},
-//            label = { Text("Password") },
-//            singleLine = true,
-//            modifier = Modifier.fillMaxWidth().padding(horizontal = 32.dp, vertical = 16.dp)
-//        )
-//        Button(
-//            onClick = { /*TODO*/ },
-//            modifier = Modifier.padding(top = 16.dp)
-//        ) {
-//            Text(text = "Create account")
-//        }
-//    }
-//}
