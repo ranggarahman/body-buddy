@@ -1,7 +1,9 @@
 package com.example.bodybuddy
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.*
@@ -15,41 +17,57 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
+import com.example.bodybuddy.ui.auth.login.HandleLogin
+import com.example.bodybuddy.ui.auth.login.LoginViewModel
+import com.example.bodybuddy.ui.auth.register.HandleRegister
+import com.example.bodybuddy.ui.auth.register.RegisterViewModel
+import com.example.bodybuddy.ui.profile.UserProfileInputActivity
 import com.example.bodybuddy.ui.theme.BodyBuddyTheme
+import com.example.bodybuddy.util.FirebaseManager
+import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent {
-            BodyBuddyTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
-                ) {
-                    BodyBuddyApp()
+        //val currentUser = FirebaseAuth.getInstance().currentUser
+        if (FirebaseManager.currentUser != null) {
+            val intent = Intent(this, UserProfileInputActivity::class.java)
+            startActivity(intent)
+            finish()
+            return
+        } else {
+            setContent {
+                BodyBuddyTheme {
+                    // A surface container using the 'background' color from the theme
+                    Surface(
+                        modifier = Modifier.fillMaxSize(),
+                        color = MaterialTheme.colors.background
+                    ) {
+                        BodyBuddyApp()
+                    }
                 }
             }
         }
     }
-}
+    companion object {
+        private const val TAG = "MainActivity"
+    }
 
+}
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Preview(device = "id:pixel_5")
 @Composable
 fun BodyBuddyApp() {
     var isLoginScreen by remember { mutableStateOf(true) }
-    val register = HandleRegister()
-    val login = HandleLogin()
+    val register = HandleRegister(registerViewModel = RegisterViewModel())
+    val login = HandleLogin(loginViewModel = LoginViewModel())
+
+//    val scaffoldColors = rememberScaffoldColors(
+//        primary = colorResource(id = R.color.blue_air_force), // change to the primary color you want
+//        surface = Color.White // change to the surface color you want
+//    )
 
     Scaffold(
-        topBar = {
-            TopAppBar(
-                title = {
-                    Text(if (isLoginScreen) "Log in" else "HandleRegister")
-                }
-            )
-        },
         content = {
 
             if (isLoginScreen) {
@@ -75,7 +93,7 @@ fun BodyBuddyApp() {
                     icon = { Icon(ImageVector.vectorResource(id = R.drawable.ic_app_registration_24), stringResource(
                         id = R.string.icon_register
                     ) )},
-                    label = { Text("HandleRegister", fontSize = 16.sp, fontWeight = FontWeight.Bold,
+                    label = { Text("Register", fontSize = 16.sp, fontWeight = FontWeight.Bold,
                         textAlign = TextAlign.Center
                     ) },
                     selected = !isLoginScreen,
