@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <style name="Theme.BodyBuddy" parent="android:Theme.Material.Light.NoActionBar">
-        <item name="android:statusBarColor">@color/purple_700</item>
+    <style name="Theme.BodyBuddy" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/black_rich</item>
+        <item name="colorPrimaryDark">@color/blue_air_force</item>
+        <item name="colorAccent">@color/blue_columbia</item>
     </style>
 </resources>

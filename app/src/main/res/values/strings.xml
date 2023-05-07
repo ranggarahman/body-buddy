@@ -3,4 +3,7 @@
     <string name="icon_login">Login Icon</string>
     <string name="icon_register">Register Icon</string>
     <string name="title_activity_dashboard">DashboardActivity</string>
+    <string name="action_input_age">Your Age</string>
+    <string name="action_your_height">Your Height</string>
+    <string name="action_input_weight">Your Weight</string>
 </resources>
