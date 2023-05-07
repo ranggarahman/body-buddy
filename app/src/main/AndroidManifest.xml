@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-feature android:name="android.hardware.camera" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -14,8 +18,17 @@
         android:theme="@style/Theme.BodyBuddy"
         tools:targetApi="31">
         <activity
-            android:name=".ui.CameraActivity"
+            android:name=".ui.CameraXActivity"
             android:exported="false" />
+        <activity
+            android:name=".ui.CameraActivity"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".ui.profile.UserProfileInputActivity"
             android:exported="false"
@@ -24,13 +37,15 @@
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.BodyBuddy">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:theme="@style/Theme.BodyBuddy"/>
+<!--            android:theme="@style/Theme.BodyBuddy">-->
+<!--        UNCOMMENT INI-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
+<!--    </activity>-->
     </application>
 
 </manifest>
