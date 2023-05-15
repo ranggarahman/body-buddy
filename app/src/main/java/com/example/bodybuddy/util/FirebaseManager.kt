@@ -6,6 +6,6 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 
 object FirebaseManager {
-    var database = FirebaseDatabase.getInstance("https://idyllic-aspect-298005-default-rtdb.asia-southeast1.firebasedatabase.app/").reference
+    val database = FirebaseDatabase.getInstance("https://idyllic-aspect-298005-default-rtdb.asia-southeast1.firebasedatabase.app/").reference
     val currentUser = FirebaseAuth.getInstance().currentUser
 }
