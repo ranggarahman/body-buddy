@@ -1,9 +1,8 @@
-package com.example.bodybuddy
+package com.example.bodybuddy.ui.auth
 
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.*
@@ -17,6 +16,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
+import com.example.bodybuddy.R
 import com.example.bodybuddy.ui.auth.login.HandleLogin
 import com.example.bodybuddy.ui.auth.login.LoginViewModel
 import com.example.bodybuddy.ui.auth.register.HandleRegister
@@ -24,14 +24,13 @@ import com.example.bodybuddy.ui.auth.register.RegisterViewModel
 import com.example.bodybuddy.ui.profile.UserProfileInputActivity
 import com.example.bodybuddy.ui.theme.BodyBuddyTheme
 import com.example.bodybuddy.util.FirebaseManager
-import com.google.firebase.auth.FirebaseAuth
 
-class MainActivity : ComponentActivity() {
+class AuthActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //val currentUser = FirebaseAuth.getInstance().currentUser
         if (FirebaseManager.currentUser != null) {
-            val intent = Intent(this, UserProfileInputActivity::class.java)
+            val intent = Intent(this@AuthActivity, UserProfileInputActivity::class.java)
             startActivity(intent)
             finish()
             return
@@ -50,7 +49,7 @@ class MainActivity : ComponentActivity() {
         }
     }
     companion object {
-        private const val TAG = "MainActivity"
+        private const val TAG = "AuthActivity"
     }
 
 }

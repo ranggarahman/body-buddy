@@ -4,5 +4,6 @@
         <item name="colorPrimary">@color/black_rich</item>
         <item name="colorPrimaryDark">@color/blue_air_force</item>
         <item name="colorAccent">@color/blue_columbia</item>
+        <item name="android:fontFamily">@font/youtube_sans_medium</item>
     </style>
 </resources>

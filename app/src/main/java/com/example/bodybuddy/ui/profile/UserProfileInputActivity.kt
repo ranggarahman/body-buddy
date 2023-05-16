@@ -1,10 +1,12 @@
 package com.example.bodybuddy.ui.profile
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
 import com.example.bodybuddy.databinding.ActivityUserProfileInputBinding
+import com.example.bodybuddy.ui.main.MainActivity
 import com.google.firebase.auth.FirebaseAuth
 
 class UserProfileInputActivity : AppCompatActivity() {
@@ -13,12 +15,45 @@ class UserProfileInputActivity : AppCompatActivity() {
     private val profileInputViewModel by viewModels<ProfileInputViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        checkData()
         super.onCreate(savedInstanceState)
-        binding = ActivityUserProfileInputBinding.inflate(layoutInflater)
 
-        setContentView(binding.root)
+        profileInputViewModel.isDataExist.observe(this){isDataExists ->
+            if (isDataExists){
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+                finish()
+            } else {
+                binding = ActivityUserProfileInputBinding.inflate(layoutInflater)
 
-        setData()
+                setContentView(binding.root)
+
+                setData()
+
+                setDashboard()
+            }
+        }
+    }
+
+    private fun checkData() {
+        profileInputViewModel.checkUserData()
+    }
+
+    private fun setDashboard() {
+        profileInputViewModel.isSuccess.observe(this){isSuccess ->
+            if (isSuccess){
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+                finish()
+            } else {
+                Toast.makeText(
+                    this,
+                    "Input Data Gagal.",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+
+        }
     }
 
     private fun setData() {
