@@ -1,7 +1,6 @@
-package com.example.bodybuddy.ui.auth.login
+package com.example.bodybuddy.ui.auth_compose.login
 
 import android.content.Intent
-import android.util.Log
 import android.util.Patterns
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -30,11 +29,9 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.bodybuddy.ui.profile.UserProfileInputActivity
-import com.google.firebase.auth.FirebaseAuth
 
 class HandleLogin(private val loginViewModel: LoginViewModel) {
     @OptIn(ExperimentalComposeUiApi::class)
