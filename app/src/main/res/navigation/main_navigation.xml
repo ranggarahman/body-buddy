@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/mobile_navigation"
+    android:id="@+id/main_navigation"
     app:startDestination="@+id/navigation_home">
 
     <fragment
@@ -15,24 +15,17 @@
         android:id="@+id/navigation_calendar"
         android:name="com.example.bodybuddy.ui.main.ui.calendar.CalendarFragment"
         android:label="@string/title_calendar"
-        tools:layout="@layout/fragment_calendar"
-        app:enterAnim="@android:anim/slide_in_left"
-        app:exitAnim="@android:anim/slide_out_right">
-        <action
-            android:id="@+id/action_navigation_calendar_to_chosenDateFragment"
-            app:destination="@id/chosenDateFragment"
-            app:enterAnim="@android:anim/slide_in_left"
-            app:exitAnim="@android:anim/slide_out_right" />
-    </fragment>
+        tools:layout="@layout/fragment_calendar"/>
 
     <fragment
         android:id="@+id/navigation_profile"
-        android:name="com.example.bodybuddy.ui.main.ui.notifications.ProfileFragment"
+        android:name="com.example.bodybuddy.ui.main.ui.profile.ProfileFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_profile" />
     <fragment
-        android:id="@+id/chosenDateFragment"
-        android:name="com.example.bodybuddy.ui.main.ui.calendar.ChosenDateFragment"
-        android:label="fragment_chosen_date"
-        tools:layout="@layout/fragment_chosen_date" />
+        android:id="@+id/navigation_food_info"
+        android:name="com.example.bodybuddy.ui.main.ui.food_info.FoodInfoFragment"
+        android:label="@string/title_info"
+        tools:layout="@layout/fragment_food_info"/>
+
 </navigation>

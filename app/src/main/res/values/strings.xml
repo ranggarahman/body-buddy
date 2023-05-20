@@ -8,7 +8,7 @@
     <string name="action_input_weight">Your Weight</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_home">Home</string>
-    <string name="title_calendar">Calendar</string>
+    <string name="title_info">Food Info</string>
     <string name="title_notifications">Profile</string>
     <string name="title_food_database">Food Data</string>
     <!-- TODO: Remove or change this placeholder text -->
@@ -20,4 +20,22 @@
     <string name="save">Save</string>
     <string name="example_3_empty_input_text">Empty!</string>
     <string name="username">Username</string>
+    <string name="title_calendar">Calendar</string>
+    <string name="action_password_input">Password</string>
+    <string name="action_email_input">Email</string>
+    <string name="action_forgot_password">Forgot Password?</string>
+    <string name="action_login">Login</string>
+    <string name="divider_text">OR</string>
+    <string name="action_login_google">Login with Google</string>
+    <string name="invalid_email">Invalid Email!</string>
+    <string name="action_register">Register</string>
+    <string name="action_username">Username</string>
+    <string name="register_success">Success!</string>
+    <string name="invalid_name"><![CDATA[Username Must be > 5 Characters!]]></string>
+    <string name="invalid_password"><![CDATA[Password Must be > 5 Characters!]]></string>
+    <string name="action_already_have_an_account">Already Have an Account?</string>
+    <string name="action_dont_have_account">Don\'t Have an Account?</string>
+    <string name="text_welcome">Welcome!</string>
+    <string name="text_log_in_or_register_to_body_buddy">Please Log in to Body Buddy</string>
+    <string name="text_register_with_your_email">Register with Your Email</string>
 </resources>

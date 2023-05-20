@@ -1,7 +1,6 @@
 package com.example.bodybuddy.util
 
 import android.util.Log
-import com.example.bodybuddy.ui.auth.register.HandleRegister
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 

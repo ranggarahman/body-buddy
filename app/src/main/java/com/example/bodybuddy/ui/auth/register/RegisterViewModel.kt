@@ -4,53 +4,57 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.UserProfileChangeRequest
+import androidx.lifecycle.viewModelScope
+import com.example.bodybuddy.R
+import com.example.bodybuddy.data.repository.AuthRepository
+import com.example.bodybuddy.ui.auth.validator.AuthFormState
+import com.example.bodybuddy.ui.auth.validator.AuthResult
+import com.example.bodybuddy.util.Event
+import com.example.bodybuddy.data.Result
+import com.example.bodybuddy.util.isEmailValid
+import com.example.bodybuddy.util.isNameValid
+import com.example.bodybuddy.util.isPasswordValid
+import kotlinx.coroutines.launch
 
-class RegisterViewModel: ViewModel() {
+class RegisterViewModel(private val authRepository: AuthRepository) : ViewModel() {
 
-    private val _isLoading = MutableLiveData<Boolean>()
-    val isLoading: LiveData<Boolean> = _isLoading
+    private val _registerForm = MutableLiveData<AuthFormState>()
+    val registerFormState: LiveData<AuthFormState> = _registerForm
 
-    fun createUserAndSaveData(email: String, password: String, username: String) {
-        _isLoading.value = true
+    private val _registerResult = MutableLiveData<Event<AuthResult>>()
+    val registerResult: LiveData<Event<AuthResult>> = _registerResult
 
-        val profileUpdates = UserProfileChangeRequest.Builder()
-            .setDisplayName(username)
-            .build()
-
-        FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    val user = FirebaseAuth.getInstance().currentUser
-                    user?.let { firebaseUser ->
-                        firebaseUser.updateProfile(profileUpdates)
-                            .addOnCompleteListener{ updateName ->
-                            if (updateName.isSuccessful){
-                                Log.d(TAG, "User profile updated.")
-                            } else {
-                                Log.e(TAG, "Failed to update user profile: ${task.exception}")
-                            }
-                        }
-                        firebaseUser.sendEmailVerification()
-                            .addOnCompleteListener { emailTask ->
-                                if (emailTask.isSuccessful) {
-                                    Log.d(TAG, "Email verification sent!")
-                                } else {
-                                    Log.e(
-                                        TAG,
-                                        "Failed to send email verification: ${emailTask.exception}"
-                                    )
-                                }
-                            }
-                        Log.d(TAG, "Success!")
-                    }
-                    _isLoading.value = false
-                } else {
-                    Log.e(TAG, "Failed! : ${task.exception}")
-                    _isLoading.value = false
+    fun register(name: String, email: String, password: String,
+                 callback: ((AuthResult) -> Unit)? = null) {
+        viewModelScope.launch {
+            authRepository.register(name, email, password) {result->
+                if (result is Result.Success) {
+                    val successResult =
+                        AuthResult(successRegister = RegisteredUserView(message = result.data.message))
+                    _registerResult.value = Event(successResult)
+                    Log.d(TAG, "register function called : ${registerResult.value}")
+                    callback?.invoke(successResult)
+                } else if (result is Result.Error) {
+                    val errorResult =
+                        AuthResult(failedRegister = RegisteredUserView(message = result.exception))
+                    _registerResult.value = Event(errorResult)
+                    callback?.invoke(errorResult)
+                    Log.e(TAG, "register function called : ${registerResult.value}")
                 }
             }
+        }
+    }
+
+    fun registerDataChanged(name: String, email: String, password: String) {
+        if (!isNameValid(name)){
+            _registerForm.value = AuthFormState(nameError = R.string.invalid_name)
+        } else if (!isEmailValid(email)){
+            _registerForm.value = AuthFormState(emailError = R.string.invalid_email)
+        } else if (!isPasswordValid(password)){
+            _registerForm.value = AuthFormState(passwordError = R.string.invalid_password)
+        } else {
+            _registerForm.value = AuthFormState(isDataValid = true)
+        }
     }
 
     companion object{

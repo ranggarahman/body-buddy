@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
+    android:layout_marginTop="?attr/actionBarSize"
     android:clickable="true"
     android:focusable="true"
     tools:context=".ui.main.ui.calendar.CalendarFragment">
@@ -22,7 +23,6 @@
                 android:id="@+id/exThreeMonthText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
                 android:background="#EEEEEE"
                 android:fontFamily="sans-serif-medium"
                 android:paddingStart="20dp"
