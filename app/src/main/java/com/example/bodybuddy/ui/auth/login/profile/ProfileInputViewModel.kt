@@ -1,4 +1,4 @@
-package com.example.bodybuddy.ui.profile
+package com.example.bodybuddy.ui.auth.login.profile
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -10,7 +10,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 
 class ProfileInputViewModel: ViewModel() {
-    private val currentUser = FirebaseManager.currentUser
+    private val currentUser = FirebaseManager.currentUser.currentUser
     private val database = FirebaseManager.database
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
@@ -23,12 +23,13 @@ class ProfileInputViewModel: ViewModel() {
 
     private val newUser = database.reference
         .child("users")
-        .child(currentUser?.uid!!)
+        .child(currentUser!!.uid)
 
     fun checkUserData(){
         newUser.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 _isDataExist.value = snapshot.exists()
+                Log.d(TAG, "EXIST? : snapshot")
             }
             override fun onCancelled(error: DatabaseError) {
                 _isDataExist.value = false

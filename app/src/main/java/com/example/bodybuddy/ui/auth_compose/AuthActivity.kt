@@ -21,7 +21,7 @@ import com.example.bodybuddy.ui.auth_compose.login.HandleLogin
 import com.example.bodybuddy.ui.auth_compose.login.LoginViewModel
 import com.example.bodybuddy.ui.auth_compose.register.HandleRegister
 import com.example.bodybuddy.ui.auth_compose.register.RegisterViewModel
-import com.example.bodybuddy.ui.profile.UserProfileInputActivity
+import com.example.bodybuddy.ui.auth.login.profile.UserProfileInputActivity
 import com.example.bodybuddy.ui.theme.BodyBuddyTheme
 import com.example.bodybuddy.data.FirebaseManager
 

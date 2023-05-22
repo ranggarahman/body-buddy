@@ -16,8 +16,8 @@
             app:enterAnim="@android:anim/slide_in_left"
             app:exitAnim="@android:anim/slide_out_right" />
         <action
-            android:id="@+id/action_loginFragment_to_mainActivity"
-            app:destination="@id/mainActivity" />
+            android:id="@+id/action_loginFragment_to_userProfileInput"
+            app:destination="@id/userProfileInputActivity" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
@@ -33,5 +33,9 @@
         android:id="@+id/mainActivity"
         android:name="com.example.bodybuddy.ui.main.MainActivity"
         android:label="MainActivity" />
+    <activity
+        android:id="@+id/userProfileInputActivity"
+        android:name="com.example.bodybuddy.ui.auth.login.profile.UserProfileInputActivity"
+        android:label="UserProfileInputActivity" />
 
 </navigation>

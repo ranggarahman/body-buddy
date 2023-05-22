@@ -1,4 +1,4 @@
-package com.example.bodybuddy.ui.profile
+package com.example.bodybuddy.ui.auth.login.profile
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -7,7 +7,6 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import com.example.bodybuddy.databinding.ActivityUserProfileInputBinding
 import com.example.bodybuddy.ui.main.MainActivity
-import com.google.firebase.auth.FirebaseAuth
 
 class UserProfileInputActivity : AppCompatActivity() {
 

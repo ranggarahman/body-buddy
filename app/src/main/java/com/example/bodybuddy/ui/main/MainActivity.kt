@@ -10,6 +10,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.bodybuddy.R
 import com.example.bodybuddy.databinding.ActivityMainBinding
+import com.example.bodybuddy.ui.main.ui.calendar.CalendarFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -44,11 +45,8 @@ class MainActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
 
         binding.fab.setOnClickListener {
-            Toast.makeText(
-                this,
-                "CLICKED",
-                Toast.LENGTH_SHORT
-            ).show()
+            val dialog = AddEventOverlayFragment()
+            dialog.show(supportFragmentManager, "addevent_popup")
         }
     }
 }
