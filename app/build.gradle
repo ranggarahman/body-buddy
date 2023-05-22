@@ -78,6 +78,8 @@ dependencies {
     implementation 'com.kizitonwose.calendar:view:2.3.0'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 
+    implementation "com.airbnb.android:lottie:4.2.0"
+
     implementation "androidx.camera:camera-camera2:${camerax_version}"
     implementation "androidx.camera:camera-lifecycle:${camerax_version}"
     implementation "androidx.camera:camera-view:${camerax_version}"

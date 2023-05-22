@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.bodybuddy.data.FirebaseManager
 import com.example.bodybuddy.databinding.ActivityAuth2Binding
-import com.example.bodybuddy.ui.main.MainActivity
+import com.example.bodybuddy.ui.auth.login.profile.UserProfileInputActivity
 
 class AuthActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAuth2Binding
@@ -14,7 +14,7 @@ class AuthActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         if (FirebaseManager.currentUser.currentUser != null) {
-            val intent = Intent(this@AuthActivity, MainActivity::class.java)
+            val intent = Intent(this@AuthActivity, UserProfileInputActivity::class.java)
             startActivity(intent)
 
             finish()

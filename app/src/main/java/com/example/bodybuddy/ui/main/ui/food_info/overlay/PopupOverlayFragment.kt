@@ -36,10 +36,10 @@ class PopupOverlayFragment : DialogFragment() {
 
         // Set the food name and macronutrient values
         binding.textViewName.text = foodName
-        binding.textViewCalories.text = "Calories: $calories"
-        binding.textViewCarbs.text = "Carbs: $carbs"
-        binding.textViewFats.text = "Fats: $fats"
-        binding.textViewProtein.text = "Protein: $protein"
+        binding.textViewCalories.text = getString(R.string.text_calories, calories)
+        binding.textViewCarbs.text = getString(R.string.text_carbs, carbs)
+        binding.textViewFats.text = getString(R.string.text_fats, fats)
+        binding.textViewProtein.text = getString(R.string.text_protein, protein)
 
 //        // Set the food image (replace foodImage with your actual image)
 //        viewBinding.imageViewFood.setImageResource(R.drawable.foodImage)

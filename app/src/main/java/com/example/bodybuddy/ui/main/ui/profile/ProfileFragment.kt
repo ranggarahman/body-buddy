@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.example.bodybuddy.data.FirebaseManager
 import com.example.bodybuddy.databinding.FragmentProfileBinding
 import com.example.bodybuddy.ui.auth.AuthActivity
 
@@ -30,6 +31,10 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val username = FirebaseManager.currentUser.currentUser?.displayName.toString()
+
+        binding.textViewUsername.text = username
 
         binding.btnLogout.setOnClickListener {
             profileViewModel.logout()

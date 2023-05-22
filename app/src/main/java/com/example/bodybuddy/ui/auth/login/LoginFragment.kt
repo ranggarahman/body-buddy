@@ -79,9 +79,8 @@ class LoginFragment : Fragment() {
                 ).show()
 
                 findNavController().navigate(
-                    R.id.action_loginFragment_to_mainActivity
+                    R.id.action_loginFragment_to_userProfileInput
                 )
-
                 activity?.finish()
             }
         })

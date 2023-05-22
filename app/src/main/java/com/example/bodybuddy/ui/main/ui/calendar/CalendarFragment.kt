@@ -1,35 +1,30 @@
 package com.example.bodybuddy.ui.main.ui.calendar
 
-import android.annotation.SuppressLint
+import android.content.DialogInterface
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
-import android.widget.FrameLayout
 import android.widget.TextView
-import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.view.children
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.bodybuddy.R
+import com.example.bodybuddy.data.FoodListItem
 import com.example.bodybuddy.databinding.CalendarDayBinding
 import com.example.bodybuddy.databinding.CalendarHeaderBinding
 import com.example.bodybuddy.databinding.FragmentCalendarBinding
 import com.example.bodybuddy.ui.main.ui.calendar.event.Event
 import com.example.bodybuddy.ui.main.ui.calendar.event.EventAdapter
-import com.example.bodybuddy.util.dpToPx
-import com.example.bodybuddy.util.inputMethodManager
+import com.example.bodybuddy.ui.main.ui.calendar.event.eventoverlay.EventDetailOverlayFragment
 import com.example.bodybuddy.util.makeInVisible
 import com.example.bodybuddy.util.makeVisible
 import com.example.bodybuddy.util.setTextColorRes
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kizitonwose.calendar.core.CalendarDay
 import com.kizitonwose.calendar.core.CalendarMonth
 import com.kizitonwose.calendar.core.DayPosition
@@ -37,19 +32,17 @@ import com.kizitonwose.calendar.core.daysOfWeek
 import com.kizitonwose.calendar.view.MonthDayBinder
 import com.kizitonwose.calendar.view.MonthHeaderFooterBinder
 import com.kizitonwose.calendar.view.ViewContainer
+import java.io.Serializable
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.YearMonth
 import java.time.format.DateTimeFormatter
-import java.util.UUID
 
 class CalendarFragment : Fragment() {
 
     private var _binding: FragmentCalendarBinding? = null
 
     private val calendarViewModel by viewModels<CalendarViewModel>()
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
     private val events = mutableMapOf<LocalDate, List<Event>>()
@@ -59,79 +52,7 @@ class CalendarFragment : Fragment() {
     private val today = LocalDate.now()
 
     private var selectedDate: LocalDate? = null
-
-
-    private val eventsAdapter = EventAdapter {
-        AlertDialog.Builder(requireContext())
-            .setMessage(R.string.example_3_dialog_delete_confirmation)
-            .setPositiveButton(R.string.delete) { _, _ ->
-                deleteEvent(it)
-            }
-            .setNegativeButton(R.string.close, null)
-            .show()
-    }
-
-    val inputDialog : AlertDialog by lazy {
-        val editText = AppCompatEditText(requireContext())
-        val layout = FrameLayout(requireContext()).apply {
-            // Setting the padding on the EditText only pads the input area
-            // not the entire EditText so we wrap it in a FrameLayout.
-            val padding = dpToPx(20, requireContext())
-            setPadding(padding, padding, padding, padding)
-            addView(
-                editText, FrameLayout.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT
-                )
-            )
-        }
-        AlertDialog.Builder(requireContext())
-            .setTitle(getString(R.string.example_3_input_dialog_title))
-            .setView(layout)
-            .setPositiveButton(R.string.save) { _, _ ->
-                saveEvent(editText.text.toString())
-                // Prepare EditText for reuse.
-                editText.setText("")
-            }
-            .setNegativeButton(R.string.close, null)
-            .create()
-            .apply {
-                setOnShowListener {
-                    // Show the keyboard
-                    editText.requestFocus()
-                    context.inputMethodManager
-                        .toggleSoftInput(InputMethodManager.SHOW_FORCED, 0)
-                }
-                setOnDismissListener {
-                    // Hide the keyboard
-                    context.inputMethodManager
-                        .toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0)
-                }
-            }
-    }
-
-    private fun selectDate(date: LocalDate) {
-        if (selectedDate != date) {
-            val oldDate = selectedDate
-            selectedDate = date
-            oldDate?.let { binding.exThreeCalendar.notifyDateChanged(it) }
-            binding.exThreeCalendar.notifyDateChanged(date)
-            updateAdapterForDate(date)
-        }
-    }
-
-    private fun saveEvent(text: String) {
-        if (text.isBlank()) {
-            Toast.makeText(requireContext(), R.string.example_3_empty_input_text, Toast.LENGTH_LONG)
-                .show()
-        } else {
-            selectedDate?.let {
-                events[it] =
-                    events[it].orEmpty().plus(Event(UUID.randomUUID().toString(), text, it))
-                updateAdapterForDate(it)
-            }
-        }
-    }
+    private var previouslySelectedDate: LocalDate? = null
 
 
     override fun onCreateView(
@@ -146,20 +67,13 @@ class CalendarFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.exThreeRv.apply {
-            layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
-            adapter = eventsAdapter
-            addItemDecoration(DividerItemDecoration(requireContext(), RecyclerView.VERTICAL))
-        }
-
-        binding.exThreeCalendar.monthScrollListener = {
-            binding.exThreeMonthText.text = if (it.yearMonth.year == today.year) {
-                titleSameYearFormatter.format(it.yearMonth)
+        binding.exThreeCalendar.monthScrollListener = { calendarMonth ->
+            binding.exThreeMonthText.text = if (calendarMonth.yearMonth.year == today.year) {
+                titleSameYearFormatter.format(calendarMonth.yearMonth)
             } else {
-                titleFormatter.format(it.yearMonth)
+                titleFormatter.format(calendarMonth.yearMonth)
             }
-            // Select the first day of the visible month.
-            selectDate(it.yearMonth.atDay(1))
+            selectDate(calendarMonth.yearMonth.atDay(1))
         }
 
         val daysOfWeek = daysOfWeek()
@@ -173,17 +87,13 @@ class CalendarFragment : Fragment() {
         }
 
         if (savedInstanceState == null) {
-            // Show today's events initially.
             binding.exThreeCalendar.post { selectDate(today) }
         }
-
-//        val fab: FloatingActionButton = view.findViewById(R.id.fab)
-//        fab.setOnClickListener { inputDialog.show() }
     }
 
     private fun configureBinders(daysOfWeek: List<DayOfWeek>) {
         class DayViewContainer(view: View) : ViewContainer(view) {
-            lateinit var day: CalendarDay // Will be set when this container is bound.
+            lateinit var day: CalendarDay
             val binding = CalendarDayBinding.bind(view)
 
             init {
@@ -194,8 +104,10 @@ class CalendarFragment : Fragment() {
                 }
             }
         }
+
         binding.exThreeCalendar.dayBinder = object : MonthDayBinder<DayViewContainer> {
             override fun create(view: View) = DayViewContainer(view)
+
             override fun bind(container: DayViewContainer, data: CalendarDay) {
                 container.day = data
                 val textView = container.binding.exThreeDayText
@@ -219,7 +131,7 @@ class CalendarFragment : Fragment() {
                         else -> {
                             textView.setTextColorRes(R.color.black_rich)
                             textView.background = null
-                            dotView.isVisible = events[data.date].orEmpty().isNotEmpty()
+                            dotView.isVisible = events.containsKey(data.date) && events[data.date].orEmpty().isNotEmpty()
                         }
                     }
                 } else {
@@ -232,11 +144,12 @@ class CalendarFragment : Fragment() {
         class MonthViewContainer(view: View) : ViewContainer(view) {
             val legendLayout = CalendarHeaderBinding.bind(view).legendLayout.root
         }
+
         binding.exThreeCalendar.monthHeaderBinder =
             object : MonthHeaderFooterBinder<MonthViewContainer> {
                 override fun create(view: View) = MonthViewContainer(view)
+
                 override fun bind(container: MonthViewContainer, data: CalendarMonth) {
-                    // Setup each header day text if we have not done that already.
                     if (container.legendLayout.tag == null) {
                         container.legendLayout.tag = data.yearMonth
                         container.legendLayout.children.map { it as TextView }
@@ -249,24 +162,122 @@ class CalendarFragment : Fragment() {
             }
     }
 
+    private fun selectDate(date: LocalDate) {
+
+        Log.d(TAG, "SELECT DATE CALLED")
+
+        if (selectedDate != date) {
+            val oldDate = selectedDate
+            selectedDate = date
+            oldDate?.let { binding.exThreeCalendar.notifyDateChanged(it) }
+            binding.exThreeCalendar.notifyDateChanged(date)
+            updateAdapterForDate(date)
+        }
+    }
+
+    private fun updateAdapterForDate(date: LocalDate) {
+        calendarViewModel.updateAdapterForDate(date)
+
+        val mediatorLiveData = MediatorLiveData<Pair<List<Event>?, Boolean>>()
+        mediatorLiveData.addSource(calendarViewModel.eventList) { eventList ->
+            mediatorLiveData.value = eventList to (calendarViewModel.isSuccess.value ?: false)
+        }
+
+        mediatorLiveData.addSource(calendarViewModel.isSuccess) { isSuccess ->
+            mediatorLiveData.value = calendarViewModel.eventList.value to isSuccess
+        }
+
+        mediatorLiveData.observe(viewLifecycleOwner) { (eventList, isSuccess) ->
+            if (isSuccess) {
+                val foodListAdapter = eventList?.let { EventAdapter(it) }
+
+                binding.exThreeRv.adapter = foodListAdapter
+                binding.exThreeRv.layoutManager = LinearLayoutManager(requireActivity())
+
+                foodListAdapter?.setOnItemClickCallback(object : EventAdapter.OnItemClickCallback {
+                    override fun onItemClicked(event: Event) {
+                        val dialog = EventDetailOverlayFragment()
+
+                        dialog.arguments = Bundle().apply {
+                            putString("date", date.format(DateTimeFormatter
+                                .ofPattern("yyyyMMdd")))
+                            putString("mealtype", event.text)
+                        }
+
+                        dialog.show(parentFragmentManager, "detail_popup")
+
+//                        val observer = object : Observer<List<FoodListItem>> {
+//                            override fun onChanged(value: List<FoodListItem> ) {
+//                                Log.d(TAG, "MAPLIST : $value")
+//
+//                                dialog.arguments = Bundle().apply {
+//                                    putSerializable("FoodListItem", value as Serializable)
+//                                    putString("mealtype", event.text)
+//                                }
+//                                calendarViewModel.foodList.removeObserver(this)
+//                            }
+//                        }
+//
+//                        calendarViewModel.foodList.observe(viewLifecycleOwner, observer)
+                    }
+                })
+
+                eventList?.let { events[date] = it }
+            }
+
+            binding.exThreeSelectedDateText.text = selectionFormatter.format(date)
+        }
+    }
+
+//    private fun updateAdapterForDate(date: LocalDate){
+//        calendarViewModel.updateAdapterForDate(date)
+//
+//        calendarViewModel.eventList.observe(viewLifecycleOwner){eventList ->
+//            calendarViewModel.isSuccess.observe(viewLifecycleOwner) {
+//                if (it) {
+//
+//                    val foodListAdapter = eventList?.let { data -> EventAdapter(data) }
+//
+//                    binding.exThreeRv.adapter = foodListAdapter
+//                    binding.exThreeRv.layoutManager = LinearLayoutManager(requireActivity())
+//
+//                    foodListAdapter?.setOnItemClickCallback(object : EventAdapter.OnItemClickCallback{
+//                        override fun onItemClicked(event: List<Event>) {
+//                            val dialog = EventDetailOverlayFragment()
+//
+//                            calendarViewModel.eventMapList.observe(viewLifecycleOwner){eventMapList ->
+//                                val args = Bundle()
+//                                args.putSerializable("eventMapList", eventMapList as Serializable)
+//
+//                                dialog.arguments = args
+//                                dialog.show(parentFragmentManager, "event_dialog")
+//                            }
+//                        }
+//                    })
+//
+//                    if (eventList != null) {
+//                        events[date] = eventList
+//                    }
+//                }
+//
+//                binding.exThreeSelectedDateText.text = selectionFormatter.format(date)
+//            }
+//        }
+//
+//    }
+
     private fun deleteEvent(event: Event) {
         val date = event.date
         events[date] = events[date].orEmpty().minus(event)
         updateAdapterForDate(date)
     }
 
-    @SuppressLint("NotifyDataSetChanged")
-    private fun updateAdapterForDate(date: LocalDate) {
-        eventsAdapter.apply {
-            events.clear()
-            events.addAll(this@CalendarFragment.events[date].orEmpty())
-            notifyDataSetChanged()
-        }
-        binding.exThreeSelectedDateText.text = selectionFormatter.format(date)
-    }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    companion object{
+        private const val TAG ="CalendarFragment"
     }
 }

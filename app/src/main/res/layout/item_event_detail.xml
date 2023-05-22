@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp"
+    app:cardUseCompatPadding="true"
+    app:cardPreventCornerOverlap="false"
+    android:foreground="?android:attr/selectableItemBackground">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:padding="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/textview_foodname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Laptop"
+            android:textSize="20sp"
+            />
+
+        <TextView
+            android:id="@+id/textview_calorie"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/textview_foodname"
+            app:layout_constraintTop_toBottomOf="@id/textview_foodname"
+            tools:text ="Calorie: 180"/>
+
+        <TextView
+            android:id="@+id/textview_protein"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/textview_calorie"
+            app:layout_constraintStart_toStartOf="@id/textview_calorie"
+            tools:text="Protein: 20"/>
+
+        <TextView
+            android:id="@+id/textview_fat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/textview_protein"
+            app:layout_constraintTop_toBottomOf="@id/textview_protein"
+            tools:text="Fat : 87"/>
+
+        <TextView
+            android:id="@+id/textview_carbs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/textview_fat"
+            app:layout_constraintTop_toBottomOf="@id/textview_fat"
+            tools:text="Carbs: 89"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
