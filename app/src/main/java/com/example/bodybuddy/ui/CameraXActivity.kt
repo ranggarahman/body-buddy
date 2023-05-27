@@ -25,6 +25,7 @@ class CameraXActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding = ActivityCameraXactivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.captureImage.setOnClickListener { takePhoto() }
