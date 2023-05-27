@@ -33,5 +33,4 @@
             android:name=".ui.auth.login.profile.UserProfileInputActivity"
             android:exported="false" />
     </application>
-
 </manifest>

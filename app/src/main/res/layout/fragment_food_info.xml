@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
     android:layout_marginTop="?attr/actionBarSize"
     tools:context=".ui.main.ui.food_info.FoodInfoFragment">
 
@@ -12,6 +11,7 @@
         android:id="@+id/rvInfo"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginBottom="?actionBarSize"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

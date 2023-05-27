@@ -13,11 +13,9 @@ import android.widget.TextView
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
-import androidx.lifecycle.findViewTreeLifecycleOwner
 import com.google.android.material.textfield.TextInputEditText
 import java.util.Locale
 
@@ -99,10 +97,17 @@ fun TextInputEditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
     })
 }
 
+val parties = arrayOf(
+    "Party A", "Party B", "Party C", "Party D", "Party E", "Party F", "Party G", "Party H",
+    "Party I", "Party J", "Party K", "Party L", "Party M", "Party N", "Party O", "Party P",
+    "Party Q", "Party R", "Party S", "Party T", "Party U", "Party V", "Party W", "Party X",
+    "Party Y", "Party Z"
+)
+
 fun <T> LiveData<T>.observeOnce(owner: LifecycleOwner, observer: Observer<T>) {
     observe(owner, object : Observer<T> {
-        override fun onChanged(t: T) {
-            observer.onChanged(t)
+        override fun onChanged(value: T) {
+            observer.onChanged(value)
             removeObserver(this)
         }
     })
