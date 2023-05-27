@@ -3,6 +3,7 @@ package com.example.bodybuddy.ui
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -13,6 +14,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.bodybuddy.databinding.ActivityCameraBinding
 import com.example.bodybuddy.databinding.ActivityCameraXactivityBinding
+import com.example.bodybuddy.util.mlTransform
 import com.example.bodybuddy.util.rotateBitmap
 import java.io.File
 
@@ -67,8 +69,9 @@ class CameraActivity : AppCompatActivity() {
     private val launcherIntentCameraX = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) {
-        Log.d(tag, "result = $it")
         if (it.resultCode == CAMERA_X_RESULT) {
+
+            it.data
 
             val myFile = it.data?.getSerializableExtra("picture") as File
             val isBackCamera = it.data?.getBooleanExtra("isBackCamera", true) as Boolean
@@ -77,6 +80,10 @@ class CameraActivity : AppCompatActivity() {
                 BitmapFactory.decodeFile(myFile.path),
                 isBackCamera
             )
+
+            val predictResult = mlTransform(result, this)
+
+            binding.textViewResult.text = "Hasil adalah $predictResult"
 
             binding.previewImage.setImageBitmap(result)
         }

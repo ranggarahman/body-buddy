@@ -38,6 +38,7 @@ android {
     buildFeatures {
         compose true
         viewBinding true
+        mlModelBinding true
     }
     composeOptions {
         kotlinCompilerExtensionVersion '1.4.1'
@@ -52,6 +53,9 @@ android {
 dependencies {
 
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'org.tensorflow:tensorflow-lite-support:0.1.0'
+    implementation 'org.tensorflow:tensorflow-lite-metadata:0.1.0'
+
     def camerax_version = "1.1.0-beta02"
 
     implementation 'androidx.core:core-ktx:1.7.0'
