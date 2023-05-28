@@ -205,20 +205,6 @@ class CalendarFragment : Fragment() {
                         }
 
                         dialog.show(parentFragmentManager, "detail_popup")
-
-//                        val observer = object : Observer<List<FoodListItem>> {
-//                            override fun onChanged(value: List<FoodListItem> ) {
-//                                Log.d(TAG, "MAPLIST : $value")
-//
-//                                dialog.arguments = Bundle().apply {
-//                                    putSerializable("FoodListItem", value as Serializable)
-//                                    putString("mealtype", event.text)
-//                                }
-//                                calendarViewModel.foodList.removeObserver(this)
-//                            }
-//                        }
-//
-//                        calendarViewModel.foodList.observe(viewLifecycleOwner, observer)
                     }
                 })
 
@@ -228,43 +214,6 @@ class CalendarFragment : Fragment() {
             binding.exThreeSelectedDateText.text = selectionFormatter.format(date)
         }
     }
-
-//    private fun updateAdapterForDate(date: LocalDate){
-//        calendarViewModel.updateAdapterForDate(date)
-//
-//        calendarViewModel.eventList.observe(viewLifecycleOwner){eventList ->
-//            calendarViewModel.isSuccess.observe(viewLifecycleOwner) {
-//                if (it) {
-//
-//                    val foodListAdapter = eventList?.let { data -> EventAdapter(data) }
-//
-//                    binding.exThreeRv.adapter = foodListAdapter
-//                    binding.exThreeRv.layoutManager = LinearLayoutManager(requireActivity())
-//
-//                    foodListAdapter?.setOnItemClickCallback(object : EventAdapter.OnItemClickCallback{
-//                        override fun onItemClicked(event: List<Event>) {
-//                            val dialog = EventDetailOverlayFragment()
-//
-//                            calendarViewModel.eventMapList.observe(viewLifecycleOwner){eventMapList ->
-//                                val args = Bundle()
-//                                args.putSerializable("eventMapList", eventMapList as Serializable)
-//
-//                                dialog.arguments = args
-//                                dialog.show(parentFragmentManager, "event_dialog")
-//                            }
-//                        }
-//                    })
-//
-//                    if (eventList != null) {
-//                        events[date] = eventList
-//                    }
-//                }
-//
-//                binding.exThreeSelectedDateText.text = selectionFormatter.format(date)
-//            }
-//        }
-//
-//    }
 
     private fun deleteEvent(event: Event) {
         val date = event.date

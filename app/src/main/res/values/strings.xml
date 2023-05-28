@@ -38,11 +38,13 @@
     <string name="text_welcome">Welcome!</string>
     <string name="text_log_in_or_register_to_body_buddy">Please Log in to Body Buddy</string>
     <string name="text_register_with_your_email">Register with Your Email</string>
-    <string name="text_calories">Calories: %1$d</string>
-    <string name="text_carbs">Carbs: %1$d</string>
-    <string name="text_fats">Fats: %1$d</string>
-    <string name="text_protein">Protein: %1$d</string>
+    <string name="text_calories">Calories: %1$.1f</string>
+    <string name="text_carbs">Carbs: %1$.1f</string>
+    <string name="text_fats">Fats: %1$.1f</string>
+    <string name="text_protein">Protein: %1$.1f</string>
     <string name="text_tell_us_more_about_you">Tell us More About You!</string>
+    <string name="text_daily_summary">Daily Summary</string>
+    <string name="action_log_out">Log Out</string>
 
     <string-array name="meals_array">
         <item>Breakfast</item>

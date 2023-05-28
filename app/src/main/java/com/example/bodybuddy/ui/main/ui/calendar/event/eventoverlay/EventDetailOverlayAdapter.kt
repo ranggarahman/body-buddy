@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bodybuddy.R
 import com.example.bodybuddy.data.FoodListItem
-import com.example.bodybuddy.databinding.FoodInfoItemBinding
 import com.example.bodybuddy.databinding.ItemEventDetailBinding
 import com.example.bodybuddy.util.formatFoodName
 
@@ -27,9 +26,9 @@ class EventDetailOverlayAdapter(private val foodList: List<FoodListItem>) : Recy
         val food = foodList[position]
 
         holder.tvName.text = formatFoodName(food.foodName)
-        holder.tvCalorie.text = food.calories.toString()
+        holder.tvCalorie.text = food.calorie.toString()
         holder.tvProtein.text = food.protein.toString()
-        holder.tvFat.text = food.fats.toString()
+        holder.tvFat.text = food.fat.toString()
         holder.tvCarbs.text = food.carbs.toString()
 
         holder.itemView.setOnClickListener {
