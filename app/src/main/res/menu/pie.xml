@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item
+        android:id="@+id/viewGithub"
+        android:title="View Github"/>
+
+    <item
+        android:id="@+id/actionToggleValues"
+        android:title="Action Toggle Value"/>
+
+    <item
+        android:id="@+id/actionToggleXValues"
+        android:title="action toggle x value"/>
+
+    <item
+        android:id="@+id/actionToggleIcons"
+        android:title="actionToggleIcons"/>
+
+    <item
+        android:id="@+id/actionTogglePercent"
+        android:title="actionTogglePercent"/>
+
+    <item
+        android:id="@+id/actionToggleMinAngles"
+        android:title="actionToggleMinAngles"/>
+
+    <item
+        android:id="@+id/actionToggleHole"
+        android:title="actionToggleHole"/>
+
+    <item
+        android:id="@+id/actionToggleCurvedSlices"
+        android:title="actionToggleCurvedSlices"/>
+
+    <item
+        android:id="@+id/actionDrawCenter"
+        android:title="actionDrawCenter">
+    </item>
+    <item
+        android:id="@+id/actionToggleSpin"
+        android:title="actionToggleSpin">
+    </item>
+
+    <item
+        android:id="@+id/animateX"
+        android:title="animateX">
+    </item>
+    <item
+        android:id="@+id/animateY"
+        android:title="animateY">
+    </item>
+    <item
+        android:id="@+id/animateXY"
+        android:title="animateXY">
+    </item>
+    <item
+        android:id="@+id/actionSave"
+        android:title="animateXY">
+    </item>
+</menu>

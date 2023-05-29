@@ -2,8 +2,8 @@ package com.example.bodybuddy.data
 
 data class FoodListItem(
     val foodName: String = "",
-    val calories: Int = 0,
-    val carbs: Int = 0,
-    val fats: Int = 0,
-    val protein: Int = 0
+    val calorie: Double = 0.0,
+    val carbs: Double = 0.0,
+    val fat: Double = 0.0,
+    val protein: Double = 0.0
 )

@@ -2,6 +2,7 @@ package com.example.bodybuddy.ui.auth.login
 
 import android.content.Context
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.bodybuddy.R
 import com.example.bodybuddy.databinding.FragmentLoginBinding
+import com.example.bodybuddy.ui.LoadingFragmentOverlay
 import com.example.bodybuddy.ui.auth.AuthViewModelFactory
 import com.example.bodybuddy.ui.auth.validator.ResultListener
 import com.example.bodybuddy.util.afterTextChanged
@@ -65,24 +67,33 @@ class LoginFragment : Fragment() {
             val loginResult = event.getContentIfNotHandled() ?: return@Observer
 
             resultListener?.onResult(LOGIN_RESULT_OK)
+            val dialog = LoadingFragmentOverlay()
+            dialog.show(parentFragmentManager, "loading_login_overlay")
 
-            if (loginResult.failedLogin != null) {
-                Toast.makeText(activity,
-                    loginResult.failedLogin.message,
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-            if (loginResult.successLogin != null) {
-                Toast.makeText(activity,
-                    loginResult.successLogin.message,
-                    Toast.LENGTH_SHORT
-                ).show()
+            val handler = Handler()
+            handler.postDelayed({
+                if (loginResult.failedLogin != null) {
+                    Toast.makeText(activity,
+                        loginResult.failedLogin.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                if (loginResult.successLogin != null) {
+                    Toast.makeText(activity,
+                        loginResult.successLogin.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
 
-                findNavController().navigate(
-                    R.id.action_loginFragment_to_userProfileInput
-                )
-                activity?.finish()
-            }
+                    requireActivity().finish()
+
+                    findNavController().navigate(
+                        R.id.action_loginFragment_to_userProfileInput
+                    )
+                }
+
+                dialog.dismiss()
+            }, 2000) // Delay in milliseconds (2 seconds = 2000 milliseconds)
+
         })
 
         email.afterTextChanged {
