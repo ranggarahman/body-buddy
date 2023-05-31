@@ -1,140 +1,114 @@
+apple
+apple_pie
+avocado
+ayam_crispy
 ayam_goreng
-daging_rendang
-gulai_tambusu
 ayam_pop
-gulai_tunjang
-telur_dadar
-telur_balado
-Onion White
-Lemon
-Pepper Orange
-Apple Red 2
-Mangostan
-Eggplant
-Tomato Heart
-Pomegranate
-Guava
-Apple Braeburn
-Cherry Wax Black
-Apple Golden 3
-Apple Red 3
-Walnut
-Mulberry
-Cherry Wax Red
-Tangelo
-Cactus fruit
-Pitahaya Red
-Carambula
-Apple Crimson Snow
-Limes
-Pear 2
-Grapefruit Pink
-Watermelon
-Cherry Rainier
-Orange
-Melon Piel de Sapo
-Nut Forest
-Tomato not Ripened
-Maracuja
-Mandarine
-Lychee
-Strawberry
-Huckleberry
-Peach 2
-Lemon Meyer
-Mango
-Cauliflower
-Tomato 4
-Pepper Red
-Pepper Green
-gulai_ikan
-Tomato 3
-Apricot
-Onion Red Peeled
-Grape White
-Fig
-Tomato 1
-Peach
-Banana
-Apple Red 1
-Tamarillo
-Hazelnut
-Rambutan
-Mango Red
-Quince
-Grapefruit White
-Cocos
-Physalis with Husk
-Pear Abate
-Kohlrabi
-Banana Red
+banana
+beach plum
+bibimbap
+black berry
+blueberry
+bread_pudding
+cannoli
+carrot_cake
+cashew
+cheesecake
+cherry
+chicken_curry
+chicken_wings
+chocolate_cake
+chocolate_mousse
+churros
+club_sandwich
+cocoa bean
+coconut
+coffee
+corn kernel
+cranberry
+creme_brulee
+cup_cakes
+daging_rendang
+date
 dendeng_batokok
-Apple Granny Smith
-Apple Golden 2
-Cherry 1
-Pineapple Mini
-Pear
-Strawberry Wedge
-Papaya
-Avocado ripe
-Grape White 3
-Cucumber Ripe
-Apple Red Delicious
-Apple Red Yellow 2
-Tomato Yellow
-Grape Blue
-Cherry 2
-Cucumber Ripe 2
-Pear Kaiser
-Pear Forelle
-Cantaloupe 1
-Onion Red
-Redcurrant
-Nectarine Flat
-Salak
-Grape White 4
-Corn
-Avocado
-Raspberry
-Chestnut
-Beetroot
-Cantaloupe 2
-Apple Golden 1
-Granadilla
-Nectarine
-Kiwi
-Plum 3
-Tomato 2
-Pear Stone
-Pepino
-Pear Williams
-Potato Red
-Plum
-Pepper Yellow
-Clementine
-Kaki
-Plum 2
-Pear Monster
-Apple Pink Lady
-Grape Pink
-Apple Red Yellow 1
-Potato Sweet
-Dates
-Cherry Wax Yellow
-Banana Lady Finger
-Blueberry
-Physalis
-Ginger Root
-Pineapple
-Tomato Cherry Red
-Grape White 2
-Nut Pecan
-Tomato Maroon
-Potato Red Washed
-Peach Flat
-Potato White
-Pear Red
-Corn Husk
-Pomelo Sweetie
-Passion Fruit
-Kumquats
+donuts
+dragonfruit
+durian
+eggplant
+french_fries
+fried_calamari
+fried_rice
+frozen_yogurt
+galia melon
+garlic_bread
+grape
+grapefruit
+greek_salad
+grilled_salmon
+guava
+gulai_ikan
+gulai_tambusu
+gulai_tunjang
+gyoza
+hamburger
+honeyberry
+hot_and_sour_soup
+hot_dog
+ice_cream
+jackfruit
+jalapeno
+kiwi
+langsat
+lasagna
+lemon
+lime
+lobster_roll_sandwich
+lychee
+macaroni_and_cheese
+macarons
+mango
+mangosteen
+melinjo
+miso_soup
+mussels
+olive
+omelette
+onion_rings
+orange
+pad_thai
+pancakes
+papaya
+passion fruit
+pea
+peanut
+pear
+peking_duck
+pho
+pineapple
+pizza
+pumpkin
+rambutan
+ramen
+raspberry
+red_velvet_cake
+salak
+samosa
+sashimi
+shrimp_and_grits
+soup
+spaghetti_bolognese
+spaghetti_carbonara
+spring_rolls
+steak
+strawberry
+strawberry guava
+sushi
+takoyaki
+telur_balado
+telur_dadar
+tiramisu
+tomato
+undefined
+vanilla
+waffles
+watermelon
