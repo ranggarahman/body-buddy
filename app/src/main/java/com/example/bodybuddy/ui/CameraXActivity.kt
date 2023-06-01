@@ -55,7 +55,6 @@ class CameraXActivity : AppCompatActivity() {
         supportActionBar?.hide()
     }
 
-
     private fun startCamera() {
         val cameraProviderFuture = ProcessCameraProvider.getInstance(this)
 

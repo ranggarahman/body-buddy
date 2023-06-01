@@ -70,9 +70,6 @@ class CameraActivity : AppCompatActivity() {
         ActivityResultContracts.StartActivityForResult()
     ) {
         if (it.resultCode == CAMERA_X_RESULT) {
-
-            it.data
-
             val myFile = it.data?.getSerializableExtra("picture") as File
             val isBackCamera = it.data?.getBooleanExtra("isBackCamera", true) as Boolean
 
@@ -83,7 +80,8 @@ class CameraActivity : AppCompatActivity() {
 
             val predictResult = mlTransform(result, this)
 
-            binding.textViewResult.text = "Hasil adalah $predictResult"
+            binding.textViewResult.text = "Hasil adalah ${predictResult.name}"
+            binding.textViewConfidence.text = "Confidence adalah ${predictResult.confidence}%"
 
             binding.previewImage.setImageBitmap(result)
         }
