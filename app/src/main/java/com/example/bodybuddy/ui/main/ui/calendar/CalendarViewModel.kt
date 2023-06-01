@@ -14,20 +14,11 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 class CalendarViewModel : ViewModel() {
-
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is calendar Fragment"
-    }
-    val text: LiveData<String> = _text
-
     private val _eventList = MutableLiveData<List<Event>?>()
     val eventList : LiveData<List<Event>?> = _eventList
 
     private val _isSuccess = MutableLiveData<Boolean>()
     val isSuccess: LiveData<Boolean> = _isSuccess
-
-    private val _foodList = MutableLiveData<List<FoodListItem>>()
-    val foodList : LiveData<List<FoodListItem>> = _foodList
 
     private val user = FirebaseManager.currentUser.currentUser
     private val database = FirebaseManager.database
@@ -75,42 +66,6 @@ class CalendarViewModel : ViewModel() {
                 }
             })
         }
-    }
-
-    fun retrieveFoodListFromDatabase(mealType: String, date: LocalDate) {
-        val formattedDate = date.format(DateTimeFormatter.ofPattern("yyyyMMdd"))
-        val databaseRef = database.getReference("users/$userId/meals/$formattedDate/$mealType")
-
-        databaseRef.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    val tempList = ArrayList<FoodListItem>()
-                    //This is mealtype's child
-                    for (foodSnapshot in dataSnapshot.children) {
-                        val foodName = foodSnapshot.key.toString()
-                        val foodData = foodSnapshot.getValue(FoodListItem::class.java)
-                        if (foodData != null) {
-                            val foodItem = FoodListItem(
-                                foodName,
-                                foodData.calories,
-                                foodData.carbs,
-                                foodData.fats,
-                                foodData.protein
-                            )
-                            tempList.add(foodItem)
-                        }
-                    }
-
-                    _foodList.value = tempList
-
-                    Log.d(TAG, "FODLIST = $tempList")
-                }
-            }
-
-            override fun onCancelled(databaseError: DatabaseError) {
-                Log.d(TAG, "FODLIST = err")
-            }
-        })
     }
 
     companion object {

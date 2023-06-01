@@ -32,7 +32,6 @@ class LoginViewModel(private val authRepository: AuthRepository) : ViewModel() {
                             message = loggedInUser.name.toString()
                         )
                     )
-
                     _loginResult.value = Event(successResult)
                     callback?.invoke(successResult)
                 } else if (result is Result.Error) {

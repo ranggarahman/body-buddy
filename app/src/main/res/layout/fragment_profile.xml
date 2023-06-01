@@ -37,7 +37,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textAllCaps="false"
-        android:text="Log Out"
+        android:text="@string/action_log_out"
         android:layout_marginTop="16dp"
         android:drawableLeft="@drawable/ic_baseline_logout_24"
         app:layout_constraintEnd_toEndOf="parent"

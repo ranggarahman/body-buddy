@@ -45,11 +45,10 @@ class FoodInfoFragment : Fragment() {
                     val dialog = PopupOverlayFragment()
                     val args = Bundle().apply {
                         putString("foodName", formatFoodName(food.foodName))
-                        putInt("calories", food.calories)
-                        putInt("carbs", food.carbs)
-                        putInt("fats", food.fats)
-                        putInt("protein", food.protein)
-                        // Put any additional data you need to pass to the fragment
+                        putDouble("calorie", food.calorie)
+                        putDouble("carbs", food.carbs)
+                        putDouble("fat", food.fat)
+                        putDouble("protein", food.protein)
                     }
                     dialog.arguments = args
                     dialog.show(parentFragmentManager, "popup_dialog")

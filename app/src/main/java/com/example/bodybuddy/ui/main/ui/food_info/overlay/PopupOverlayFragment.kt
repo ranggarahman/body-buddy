@@ -29,10 +29,10 @@ class PopupOverlayFragment : DialogFragment() {
 
         // Retrieve the food data from arguments
         val foodName = arguments?.getString("foodName")
-        val calories = arguments?.getInt("calories")
-        val carbs = arguments?.getInt("carbs")
-        val fats = arguments?.getInt("fats")
-        val protein = arguments?.getInt("protein")
+        val calories = arguments?.getDouble("calorie")
+        val carbs = arguments?.getDouble("carbs")
+        val fats = arguments?.getDouble("fat")
+        val protein = arguments?.getDouble("protein")
 
         // Set the food name and macronutrient values
         binding.textViewName.text = foodName

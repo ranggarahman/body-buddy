@@ -2,6 +2,7 @@ package com.example.bodybuddy.ui.auth.register
 
 import android.content.Context
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.bodybuddy.R
 import com.example.bodybuddy.databinding.FragmentRegisterBinding
+import com.example.bodybuddy.ui.LoadingFragmentOverlay
 import com.example.bodybuddy.ui.auth.AuthViewModelFactory
 import com.example.bodybuddy.ui.auth.validator.ResultListener
 import com.example.bodybuddy.util.afterTextChanged
@@ -74,21 +76,31 @@ class RegisterFragment : Fragment() {
 
             resultListener?.onResult(REGISTER_RESULT_OK)
 
-            if(registerResult.failedRegister != null){
-                Toast.makeText(
-                    activity,
-                    registerResult.failedRegister.message,
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-            if(registerResult.successRegister != null){
-                Toast.makeText(
-                    activity,
-                    getString(R.string.register_success),
-                    Toast.LENGTH_SHORT
-                ).show()
-                findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
-            }
+            val dialog = LoadingFragmentOverlay()
+            dialog.show(parentFragmentManager, "loading_register_overlay")
+
+            val handler = Handler()
+
+            handler.postDelayed({
+
+                if(registerResult.failedRegister != null){
+                    Toast.makeText(
+                        activity,
+                        registerResult.failedRegister.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                if(registerResult.successRegister != null){
+                    Toast.makeText(
+                        activity,
+                        getString(R.string.register_success),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
+                }
+
+                dialog.dismiss()
+            }, 2000)
         })
 
         name.afterTextChanged {

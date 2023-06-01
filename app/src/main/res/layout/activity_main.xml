@@ -20,7 +20,7 @@
             android:background="@color/blue_columbia" />
 
     </com.google.android.material.appbar.AppBarLayout>
-    
+
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottomAppBar"
         android:layout_width="match_parent"
@@ -30,10 +30,7 @@
         app:fabCradleVerticalOffset="10dp"
         android:background="@color/white"
         android:backgroundTint="@color/white"
-        app:contentInsetLeft="0dp"
-        app:contentInsetStart="0dp"
-        app:contentInsetRight="0dp"
-        app:contentInsetEnd="0dp"
+        app:hideOnScroll="true"
         android:layout_gravity="bottom">
 
         <com.google.android.material.bottomnavigation.BottomNavigationView

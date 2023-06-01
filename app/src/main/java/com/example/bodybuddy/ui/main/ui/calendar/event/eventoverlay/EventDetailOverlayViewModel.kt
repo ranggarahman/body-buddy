@@ -37,9 +37,9 @@ class EventDetailOverlayViewModel: ViewModel() {
                         if (foodData != null) {
                             val foodItem = FoodListItem(
                                 foodName,
-                                foodData.calories,
+                                foodData.calorie,
                                 foodData.carbs,
-                                foodData.fats,
+                                foodData.fat,
                                 foodData.protein
                             )
                             tempList.add(foodItem)
