@@ -4,7 +4,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.util.Log
 import com.example.bodybuddy.ml.Output
-import com.example.bodybuddy.ml.Output1
+import com.example.bodybuddy.ml.InceptionFix
 import org.tensorflow.lite.support.image.TensorImage
 import org.tensorflow.lite.DataType
 import org.tensorflow.lite.support.common.ops.NormalizeOp
@@ -47,9 +47,9 @@ fun mlTransform(bitmap: Bitmap, context: Context): PredictResult {
     val foodList = inputString.split("\n")
 
 //    val model = Model.newInstance(context)
-    val model = Output1.newInstance(context)
+    val model = InceptionFix.newInstance(context)
 
-    var resized = Bitmap.createScaledBitmap(bitmap, 1, 1, true)
+    var resized = Bitmap.createScaledBitmap(bitmap, 299, 299, true)
 
     // Initialize a TensorImage
     val tensorImage = TensorImage(DataType.FLOAT32)
@@ -59,7 +59,7 @@ fun mlTransform(bitmap: Bitmap, context: Context): PredictResult {
 
     // Create an ImageProcessor
     val imageProcessor = ImageProcessor.Builder()
-        .add(ResizeOp(1, 1, ResizeOp.ResizeMethod.BILINEAR))
+        .add(ResizeOp(299, 299, ResizeOp.ResizeMethod.BILINEAR))
         .add(NormalizeOp(0f, 255f)) // Normalize pixel values to [0,1]
         .build()
 
@@ -91,7 +91,7 @@ data class PredictResult(
 private fun getMax(arr:FloatArray):Int{
     var ind = 0
     var min = 0.0f
-    for (i in 0..104){
+    for (i in 0 until arr.size){
         if (arr[i]>min){
             ind = i
             min = arr[i]

@@ -35,7 +35,7 @@
         app:layout_constraintEnd_toEndOf="@+id/textViewResult"
         app:layout_constraintStart_toStartOf="@+id/textViewResult"
         app:layout_constraintTop_toBottomOf="@id/textViewResult"
-        tools:text="Confidence Is" />
+        tools:text="Confidence is" />
 
     <Button
         android:id="@+id/button1"
