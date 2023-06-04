@@ -58,6 +58,20 @@ class EventDetailOverlayViewModel: ViewModel() {
         })
     }
 
+    fun deleteFoodItemFromDatabase(mealType: String, date: String, name: String) {
+        val databaseRefDelete = database.getReference("users/$userId/meals/$date/$mealType/$name")
+
+        databaseRefDelete.removeValue()
+            .addOnSuccessListener {
+                // Deletion successful
+                // Handle any additional logic if needed
+            }
+            .addOnFailureListener {
+                // Error occurred during deletion
+                // Handle the error
+            }
+    }
+
     companion object {
         private const val TAG = "EventDetailOverlayViewModel"
     }

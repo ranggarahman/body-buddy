@@ -2,9 +2,9 @@ package com.example.bodybuddy.data.datasource
 
 import android.util.Log
 import com.example.bodybuddy.data.FirebaseManager
+import com.example.bodybuddy.data.Result
 import com.example.bodybuddy.data.models.LoggedInUser
 import com.example.bodybuddy.data.models.RegisteredUser
-import com.example.bodybuddy.data.Result
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
 
@@ -23,11 +23,11 @@ class AuthDataSource {
                         )
                         callback(Result.Success(loggedInUser))
                     } else {
-                        callback(Result.Error("Error"))
+                        callback(Result.Error("User Not Found! :("))
                     }
                 }
         } catch (e: Throwable) {
-            callback(Result.Error("Error"))
+            callback(Result.Error("Oops! Bad Connection :("))
         }
     }
 
@@ -66,17 +66,17 @@ class AuthDataSource {
                             Result.Success(
                                 data = RegisteredUser(
                                     error = false,
-                                    message = "Success"
+                                    message = "Registration Success!"
                                 )
                             )
                         )
                     } else {
                         Log.e(TAG, "Failed! : ${task.exception}")
-                        callback(Result.Error("Eerror"))
+                        callback(Result.Error("Email Already In Use!"))
                     }
                 }
         } catch (e: Throwable) {
-            callback(Result.Error("Eerror"))
+            callback(Result.Error("Oops! Bad Connection :("))
         }
     }
 

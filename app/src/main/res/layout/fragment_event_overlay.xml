@@ -10,25 +10,15 @@
     <!-- Breakfast Header -->
     <TextView
         android:id="@+id/mealtypeHeader"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="Breakfast"
         android:textAlignment="center"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/editButton"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <!-- Breakfast Edit Button -->
-    <Button
-        android:id="@+id/editButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Edit"
-        android:drawableLeft="@drawable/ic_baseline_edit_24"
-        app:layout_constraintBaseline_toBaselineOf="@+id/mealtypeHeader"
-        app:layout_constraintEnd_toEndOf="parent" />
 
     <!-- Breakfast Recycler View -->
     <androidx.recyclerview.widget.RecyclerView

@@ -42,6 +42,7 @@ class RegisterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         val name = binding.inputUsername
         val email = binding.inputEmail
         val password = binding.inputPassword
@@ -65,10 +66,6 @@ class RegisterFragment : Fragment() {
             if(registerState.nameError != null){
                 name.error = getString(registerState.nameError)
             }
-            if(registerState.passwordError != null){
-                password.error = getString(registerState.passwordError)
-            }
-
         })
 
         registerViewModel.registerResult.observe(viewLifecycleOwner, Observer { event ->

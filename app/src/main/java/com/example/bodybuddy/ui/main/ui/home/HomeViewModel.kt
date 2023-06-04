@@ -26,6 +26,9 @@ class HomeViewModel : ViewModel() {
     private val _totalFat = MutableLiveData<Double>()
     val totalFat: LiveData<Double> = _totalFat
 
+    private val _snapshotExits = MutableLiveData<Boolean>()
+    val snapshotExist : LiveData<Boolean> = _snapshotExits
+
     private val user = FirebaseManager.currentUser.currentUser
     private val database = FirebaseManager.database
 
@@ -38,15 +41,18 @@ class HomeViewModel : ViewModel() {
 
     fun fetchTotalMacronutrients(date: String) {
         val databaseRef = database.getReference("users/$userId/meals/$date")
-
         viewModelScope.launch {
-            databaseRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            databaseRef.addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
 
                     var totalCalories = 0.0
                     var totalProtein = 0.0
                     var totalCarbs = 0.0
                     var totalFat = 0.0
+
+                    if (snapshot.exists()){
+                        _snapshotExits.value = true
+                    }
 
                     for (mealSnapshot in snapshot.children) {
                         for (foodSnapshot in mealSnapshot.children) {
@@ -71,7 +77,7 @@ class HomeViewModel : ViewModel() {
                 }
 
                 override fun onCancelled(error: DatabaseError) {
-                    // Handle the error case
+                    Log.d(TAG, error.message)
                 }
             })
         }

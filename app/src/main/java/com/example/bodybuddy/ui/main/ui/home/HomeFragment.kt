@@ -47,7 +47,6 @@ class HomeFragment : Fragment(), OnChartValueSelectedListener {
 
     private lateinit var chart: PieChart
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -101,14 +100,14 @@ class HomeFragment : Fragment(), OnChartValueSelectedListener {
         chart.isRotationEnabled = true
         chart.isHighlightPerTapEnabled = true
 
-        // chart.setUnit(" €");
-        // chart.setDrawUnitsInChart(true);
+//         chart.setUnit(" grams");
+//         chart.setDrawUnitsInChart(true);
 
         // add a selection listener
         chart.setOnChartValueSelectedListener(this)
 
         chart.animateY(1400, Easing.EaseInOutQuad)
-        // chart.spin(2000, 0, 360);
+//         chart.spin(2000, 0F, 360F, W);
         val l = chart.legend
 
         l.isEnabled = false
@@ -174,15 +173,26 @@ class HomeFragment : Fragment(), OnChartValueSelectedListener {
         }
 
         combinedLiveData.observe(viewLifecycleOwner) { (proteinValue, carbsValue, fatValue) ->
-            if (proteinValue != null && carbsValue != null && fatValue != null) {
-                entries.clear()
-                entries.add(PieEntry(proteinValue.toFloat(), "Protein"))
-                entries.add(PieEntry(carbsValue.toFloat(), "Carbs"))
-                entries.add(PieEntry(fatValue.toFloat(), "Fat"))
 
-                dataSet.notifyDataSetChanged()
-                chart.notifyDataSetChanged()
-                chart.invalidate()
+            binding.imageviewUnavailable.visibility = View.VISIBLE
+            binding.textviewUnavailable.visibility = View.VISIBLE
+
+            Log.d("HomeFragment", "VALUE : $proteinValue, $carbsValue, $fatValue")
+
+            if (proteinValue != null && carbsValue != null && fatValue != null) {
+                if (proteinValue != 0.0 && carbsValue != 0.0 && fatValue != 0.0) {
+                    binding.imageviewUnavailable.visibility = View.GONE
+                    binding.textviewUnavailable.visibility = View.GONE
+
+                    entries.clear()
+                    entries.add(PieEntry(proteinValue.toFloat(), "Protein"))
+                    entries.add(PieEntry(carbsValue.toFloat(), "Carbs"))
+                    entries.add(PieEntry(fatValue.toFloat(), "Fat"))
+
+                    dataSet.notifyDataSetChanged()
+                    chart.notifyDataSetChanged()
+                    chart.invalidate()
+                }
             }
         }
     }
