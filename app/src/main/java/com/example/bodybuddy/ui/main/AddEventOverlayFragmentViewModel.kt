@@ -23,6 +23,44 @@ class AddEventOverlayFragmentViewModel: ViewModel() {
         .child(currentUser!!.uid)
         .child("meals")
 
+    fun overwriteUserData(
+        date: String,
+        mealtype: String,
+        name: String,
+        calorie: Double,
+        carbs: Double,
+        fat: Double,
+        protein: Double
+    ) {
+        _isLoading.value = true
+        try {
+            val mealData = hashMapOf<String, Any>(
+                "calorie" to calorie,
+                "carbs" to carbs,
+                "fat" to fat,
+                "protein" to protein
+            )
+
+            val userData = hashMapOf<String, Any>(
+                "/$date/$mealtype/$name" to mealData
+            )
+
+            ref.updateChildren(userData) { error, _ ->
+                if (error == null) {
+                    _isLoading.value = false
+                } else {
+                    // Handle error
+                }
+            }
+            Log.e(TAG, "SUCCESS")
+        } catch (e: Exception) {
+            Log.e(TAG, "FAILED")
+            _isLoading.value = false
+            _isSuccess.value = false
+        }
+    }
+
+
     fun saveUserData(date: String,
                      mealtype: String,
                      name: String,

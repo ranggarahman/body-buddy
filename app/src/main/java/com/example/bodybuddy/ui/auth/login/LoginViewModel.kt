@@ -21,6 +21,11 @@ class LoginViewModel(private val authRepository: AuthRepository) : ViewModel() {
     private val _loginResult = MutableLiveData<Event<AuthResult>>()
     val loginResult: LiveData<Event<AuthResult>> = _loginResult
 
+    init {
+        _loginForm.value = AuthFormState(isDataValid = false)
+    }
+
+
     fun login(username: String, password: String,
               callback: ((AuthResult) -> Unit)? = null) {
         viewModelScope.launch {
@@ -51,7 +56,10 @@ class LoginViewModel(private val authRepository: AuthRepository) : ViewModel() {
     fun loginDataChanged(email : String, password: String) {
         if (!isEmailValid(email)) {
             _loginForm.value = AuthFormState(emailError = R.string.invalid_email)
-        } else {
+        } else if (password.isBlank()){
+            _loginForm.value = AuthFormState(isDataValid = false)
+        }
+        else {
             _loginForm.value = AuthFormState(isDataValid = true)
         }
     }

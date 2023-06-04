@@ -5,7 +5,7 @@ package com.example.bodybuddy.ui.auth.validator
  */
 data class AuthFormState(
     val emailError: Int? = null,
-    val passwordError: Int? = null,
+    val passwordError: String? = null,
     val nameError: Int? = null,
     val isDataValid: Boolean = false
 )

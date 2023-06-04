@@ -1,13 +1,16 @@
 package com.example.bodybuddy.ui.auth.login
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -16,8 +19,14 @@ import com.example.bodybuddy.R
 import com.example.bodybuddy.databinding.FragmentLoginBinding
 import com.example.bodybuddy.ui.LoadingFragmentOverlay
 import com.example.bodybuddy.ui.auth.AuthViewModelFactory
+import com.example.bodybuddy.ui.auth.login.reset.EmailResetOverlayFragment
 import com.example.bodybuddy.ui.auth.validator.ResultListener
 import com.example.bodybuddy.util.afterTextChanged
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.GoogleAuthProvider
 
 class LoginFragment : Fragment() {
     private lateinit var loginViewModel: LoginViewModel
@@ -37,8 +46,80 @@ class LoginFragment : Fragment() {
         return binding.root
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        Log.d(TAG, "CALLED")
+
+        if (requestCode == RC_SIGN_IN) {
+            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+            try {
+                // Get Google Sign-In account
+                val account = task.getResult(ApiException::class.java)
+
+                // Authenticate with Firebase using the Google credential
+                val credential = GoogleAuthProvider.getCredential(account?.idToken, null)
+                FirebaseAuth.getInstance().signInWithCredential(credential)
+                    .addOnCompleteListener { authTask ->
+                        if (authTask.isSuccessful) {
+                            // Google Sign-In successful, handle the authenticated user
+                            Toast.makeText(
+                                requireContext(),
+                                "SUCCESS LOGIN",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            // Do further processing with the authenticated user
+
+                            requireActivity().finish()
+
+                            findNavController().navigate(
+                                R.id.action_loginFragment_to_userProfileInput
+                            )
+
+                            Log.d(TAG, "success")
+                        } else {
+                            Log.e(TAG, "ERROR not success")
+                        }
+                    }
+            } catch (e: ApiException) {
+                Log.e(TAG, "ERROR not success ${e.message}")
+            }
+        }
+    }
+
+    private fun googleLogin() {
+        try {
+            // Configure Google Sign-In
+            val googleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken("573988797765-8746qj4p4tcvstmp0a3idt8m6cblf1tq.apps.googleusercontent.com")
+                .requestEmail()
+                .build()
+
+            // Create a GoogleSignInClient
+            val googleSignInClient = GoogleSignIn.getClient(requireContext(), googleSignInOptions)
+
+            // Launch the Google Sign-In intent
+            val signInIntent = googleSignInClient.signInIntent
+            startActivityForResult(signInIntent, RC_SIGN_IN)
+        } catch (e: Throwable) {
+            // Handle the exception
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.btnGoogleLogin.setOnClickListener {
+            googleLogin()
+        }
+
+        binding.textViewForgotPassword.setOnClickListener {
+            val email = "khalid.rizki22@gmail.com" // Replace with the user's email address
+
+            val dialog = EmailResetOverlayFragment()
+
+            dialog.show(parentFragmentManager, "reset_password_overlay")
+        }
 
         val email = binding.inputUsername
         val password = binding.inputPassword
@@ -148,7 +229,9 @@ class LoginFragment : Fragment() {
     }
 
     companion object{
+        private const val TAG = "LoginFragment"
         const val LOGIN_RESULT_OK = 200
         const val LOGIN_RESULT_ONGOING = 220
+        const val RC_SIGN_IN = 9001
     }
 }

@@ -45,6 +45,9 @@
     <string name="text_tell_us_more_about_you">Tell us More About You!</string>
     <string name="text_daily_summary">Daily Summary</string>
     <string name="action_log_out">Log Out</string>
+    <string name="text_unavailable_log_data">Oops! Looks like you have no data for today..</string>
+    <string name="action_send_password_reset_email">Send Password Reset Email</string>
+    <string name="action_enter_your_email_address">Enter Your Email Address</string>
 
     <string-array name="meals_array">
         <item>Breakfast</item>

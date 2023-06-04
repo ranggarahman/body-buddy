@@ -6,11 +6,14 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.bodybuddy.data.FoodListItem
 import com.example.bodybuddy.databinding.FragmentEventOverlayBinding
+import com.example.bodybuddy.ui.main.AddEventOverlayFragment
+import com.example.bodybuddy.util.formatFoodName
 
 class EventDetailOverlayFragment() : DialogFragment() {
 
@@ -39,12 +42,37 @@ class EventDetailOverlayFragment() : DialogFragment() {
 
         eventDetailOverlayViewModel.foodList.observe(viewLifecycleOwner){
 
-            val adapter = EventDetailOverlayAdapter(it)
+            val eventOverlayAdapter = EventDetailOverlayAdapter(it, requireContext())
 
-            binding.foodRecyclerView.adapter = adapter
+            binding.foodRecyclerView.adapter = eventOverlayAdapter
             binding.foodRecyclerView.layoutManager = LinearLayoutManager(requireActivity())
-        }
 
+            eventOverlayAdapter.setOnItemClickCallback(object : EventDetailOverlayAdapter.OnItemClickCallback{
+                override fun onItemClickedEdit(food: FoodListItem) {
+                    val dialog = AddEventOverlayFragment()
+
+                    val args = Bundle().apply {
+                        putString("foodName", formatFoodName(food.foodName))
+                        putString("date", date)
+                        putString("mealType", mealType)
+                        putDouble("calorie", food.calorie)
+                        putDouble("carbs", food.carbs)
+                        putDouble("fat", food.fat)
+                        putDouble("protein", food.protein)
+                    }
+                    dialog.arguments = args
+                    dialog.show(parentFragmentManager, "editevent_popup")
+                }
+
+                override fun onItemClickedDelete(foodName: String) {
+                    eventDetailOverlayViewModel.deleteFoodItemFromDatabase(
+                        mealType,
+                        date,
+                        foodName
+                    )
+                }
+            })
+        }
 
         binding.mealtypeHeader.text = mealType
     }

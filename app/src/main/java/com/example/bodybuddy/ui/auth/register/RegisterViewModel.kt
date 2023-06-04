@@ -24,6 +24,10 @@ class RegisterViewModel(private val authRepository: AuthRepository) : ViewModel(
     private val _registerResult = MutableLiveData<Event<AuthResult>>()
     val registerResult: LiveData<Event<AuthResult>> = _registerResult
 
+    init {
+        _registerForm.value = AuthFormState(isDataValid = false)
+    }
+
     fun register(name: String, email: String, password: String,
                  callback: ((AuthResult) -> Unit)? = null) {
         viewModelScope.launch {
@@ -50,8 +54,8 @@ class RegisterViewModel(private val authRepository: AuthRepository) : ViewModel(
             _registerForm.value = AuthFormState(nameError = R.string.invalid_name)
         } else if (!isEmailValid(email)){
             _registerForm.value = AuthFormState(emailError = R.string.invalid_email)
-        } else if (!isPasswordValid(password)){
-            _registerForm.value = AuthFormState(passwordError = R.string.invalid_password)
+        } else if (password.isBlank()){
+            _registerForm.value = AuthFormState(isDataValid = false)
         } else {
             _registerForm.value = AuthFormState(isDataValid = true)
         }

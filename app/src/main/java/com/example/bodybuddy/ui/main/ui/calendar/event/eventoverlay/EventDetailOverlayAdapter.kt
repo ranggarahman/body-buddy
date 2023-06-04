@@ -1,5 +1,6 @@
 package com.example.bodybuddy.ui.main.ui.calendar.event.eventoverlay
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +10,7 @@ import com.example.bodybuddy.data.FoodListItem
 import com.example.bodybuddy.databinding.ItemEventDetailBinding
 import com.example.bodybuddy.util.formatFoodName
 
-class EventDetailOverlayAdapter(private val foodList: List<FoodListItem>) : RecyclerView.Adapter<EventDetailOverlayAdapter.FoodInfoViewHolder>() {
+class EventDetailOverlayAdapter(private val foodList: List<FoodListItem>, private val context: Context) : RecyclerView.Adapter<EventDetailOverlayAdapter.FoodInfoViewHolder>() {
 
     private lateinit var onItemClickCallback: OnItemClickCallback
 
@@ -26,14 +27,19 @@ class EventDetailOverlayAdapter(private val foodList: List<FoodListItem>) : Recy
         val food = foodList[position]
 
         holder.tvName.text = formatFoodName(food.foodName)
-        holder.tvCalorie.text = food.calorie.toString()
-        holder.tvProtein.text = food.protein.toString()
-        holder.tvFat.text = food.fat.toString()
-        holder.tvCarbs.text = food.carbs.toString()
+        holder.tvCalorie.text = context.getString(R.string.text_calories, food.calorie)
+        holder.tvProtein.text = context.getString(R.string.text_protein, food.protein)
+        holder.tvFat.text = context.getString(R.string.text_fats, food.fat)
+        holder.tvCarbs.text = context.getString(R.string.text_carbs, food.carbs)
 
-        holder.itemView.setOnClickListener {
+        holder.btnEdit.setOnClickListener {
             food.let { food ->
-                onItemClickCallback.onItemClicked(food) }
+                onItemClickCallback.onItemClickedEdit(food) }
+        }
+
+        holder.btnDelete.setOnClickListener {
+            food.let { food ->
+                onItemClickCallback.onItemClickedDelete(food.foodName) }
         }
     }
 
@@ -47,10 +53,14 @@ class EventDetailOverlayAdapter(private val foodList: List<FoodListItem>) : Recy
         val tvProtein = binding.textviewProtein
         val tvFat = binding.textviewFat
         val tvCarbs = binding.textviewCarbs
+
+        val btnEdit = binding.buttonEdit
+        val btnDelete = binding.buttonDelete
     }
 
     interface OnItemClickCallback{
-        fun onItemClicked(food: FoodListItem)
+        fun onItemClickedEdit(food: FoodListItem)
+        fun onItemClickedDelete(foodName: String)
     }
 
 }
